@@ -28,7 +28,7 @@ func main() {
 	}
 
 	for {
-		arr = searh(arr, searchInt)
+		arr = search(arr, searchInt)
 		if len(arr) == 1 {
 			if arr[0] == searchInt {
 				fmt.Print("Индекс запрашиваемого числа: ")
@@ -42,7 +42,7 @@ func main() {
 	}
 }
 
-func searh(arr []int, n int) []int {
+func search(arr []int, n int) []int {
 	mid := len(arr) / 2
 
 	if arr[mid] > n {
