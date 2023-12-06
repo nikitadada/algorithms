@@ -11,23 +11,21 @@ func lengthOfLongestSubstring2(s string) int {
 
 	res, left := 0, 0
 
-	for i := 0; i < len(runes); i++ {
-		if _, ok := state[runes[i]]; ok {
-			leftCh := runes[left]
-			state[leftCh]--
-			if state[leftCh] == 0 {
-				delete(state, leftCh)
+	for right := 0; right < len(runes); right++ {
+		if _, ok := state[runes[right]]; ok {
+			state[runes[left]]--
+			if state[runes[left]] == 0 {
+				delete(state, runes[left])
 			}
 
-			res = max(res, i-left)
 			left++
-			i--
+			right--
+			continue
 		} else {
-			state[runes[i]]++
-			res = max(res, i+1-left)
+			state[runes[right]]++
 		}
 
-		res = max(res, i-left)
+		res = max(res, right-left+1)
 	}
 
 	return res
