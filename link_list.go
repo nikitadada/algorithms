@@ -84,6 +84,19 @@ func (l *LinkedList) InsertAt(data int, n int) {
 	l.length++
 }
 
+func (l *LinkedList) Reverse() {
+	var prev *Node = nil
+	cur := l.Head
+
+	for cur != nil {
+		next := cur.Next
+		cur.Next = prev
+		prev = cur
+		cur = next
+	}
+	l.Head = prev
+}
+
 func (l *LinkedList) Print() {
 	if l.Head == nil {
 		fmt.Println("Список пуст")
