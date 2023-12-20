@@ -8,7 +8,7 @@ type LinkedList struct {
 }
 
 type ListNode struct {
-	Data int
+	Val  int
 	Next *ListNode
 }
 
@@ -18,7 +18,7 @@ func NewLinkedList() *LinkedList {
 
 func (l *LinkedList) InsertAtTail(data int) {
 	node := &ListNode{
-		Data: data,
+		Val:  data,
 		Next: nil,
 	}
 
@@ -40,7 +40,7 @@ func (l *LinkedList) InsertAtTail(data int) {
 
 func (l *LinkedList) InsertAtHead(data int) {
 	node := &ListNode{
-		Data: data,
+		Val:  data,
 		Next: nil,
 	}
 
@@ -59,7 +59,7 @@ func (l *LinkedList) InsertAtHead(data int) {
 
 func (l *LinkedList) InsertAt(data int, n int) {
 	node := &ListNode{
-		Data: data,
+		Val:  data,
 		Next: nil,
 	}
 
@@ -82,20 +82,6 @@ func (l *LinkedList) InsertAt(data int, n int) {
 	curNode.Next = node
 
 	l.length++
-}
-
-func (l *LinkedList) Reverse() {
-	var prev *ListNode = nil
-	cur := l.Head
-
-	for cur != nil {
-		tmp := cur
-
-		cur = cur.Next
-		tmp.Next = prev
-		prev = tmp
-	}
-	l.Head = prev
 }
 
 func (l *LinkedList) RemoveFromEnd(n int) {
@@ -135,15 +121,47 @@ func (l *LinkedList) RemoveFromEnd2(n int) {
 	l.Head = dummyNode.Next
 }
 
-func (l *LinkedList) MiddleNode() *ListNode {
-	slow := l.Head
-	fast := l.Head
+func MiddleNode(head *ListNode) *ListNode {
+	slow := head
+	fast := head
 	for fast != nil && fast.Next != nil {
 		slow = slow.Next
 		fast = fast.Next.Next
 	}
 
 	return slow
+}
+
+func Reverse(head *ListNode) *ListNode {
+	var prev *ListNode = nil
+	cur := head
+
+	for cur != nil {
+		tmp := cur
+
+		cur = cur.Next
+		tmp.Next = prev
+		prev = tmp
+	}
+	head = prev
+
+	return head
+}
+
+func IsPalindrome(head *ListNode) bool {
+	rightPointer := Reverse(MiddleNode(head))
+	leftPointer := head
+
+	for rightPointer != nil {
+		if rightPointer.Val != leftPointer.Val {
+			return false
+		}
+
+		rightPointer = rightPointer.Next
+		leftPointer = leftPointer.Next
+	}
+
+	return true
 }
 
 func (l *LinkedList) Print() {
@@ -155,7 +173,7 @@ func (l *LinkedList) Print() {
 
 	curNode := l.Head
 	for curNode != nil {
-		fmt.Println(fmt.Sprintf("Value: %d, Next: %p", curNode.Data, curNode.Next))
+		fmt.Println(fmt.Sprintf("Value: %d, Next: %p", curNode.Val, curNode.Next))
 		curNode = curNode.Next
 	}
 }
@@ -177,14 +195,13 @@ func main() {
 	list := NewLinkedList()
 	list.InsertAtTail(1)
 	list.InsertAtTail(2)
-	list.InsertAtTail(3)
-	list.InsertAtTail(4)
-	list.InsertAtTail(5)
+	list.InsertAtTail(2)
+	list.InsertAtTail(1)
 
 	list.Print()
 	fmt.Println()
 
-	PrintListNode(list.MiddleNode())
+	fmt.Println(fmt.Sprintf("is palindrome: %t", IsPalindrome(list.Head)))
 }
 
 func PrintListNode(n *ListNode) {
@@ -193,5 +210,5 @@ func PrintListNode(n *ListNode) {
 
 		return
 	}
-	fmt.Println(fmt.Sprintf("Value: %d, Next: %p", n.Data, n.Next))
+	fmt.Println(fmt.Sprintf("Value: %d, Next: %p", n.Val, n.Next))
 }
