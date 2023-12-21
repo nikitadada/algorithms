@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type LinkedList struct {
 	Head   *ListNode
@@ -132,6 +134,33 @@ func MiddleNode(head *ListNode) *ListNode {
 	return slow
 }
 
+func IsPalindrome(head *ListNode) bool {
+	rightPointer := Reverse(MiddleNode(head))
+	leftPointer := head
+
+	for rightPointer != nil {
+		if rightPointer.Val != leftPointer.Val {
+			return false
+		}
+
+		rightPointer = rightPointer.Next
+		leftPointer = leftPointer.Next
+	}
+
+	return true
+}
+
+func PreMiddleNode(head *ListNode) *ListNode {
+	slow, fast := head, head
+
+	for fast != nil && fast.Next != nil && fast.Next.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	return slow
+}
+
 func Reverse(head *ListNode) *ListNode {
 	var prev *ListNode = nil
 	cur := head
@@ -148,20 +177,16 @@ func Reverse(head *ListNode) *ListNode {
 	return head
 }
 
-func IsPalindrome(head *ListNode) bool {
-	rightPointer := Reverse(MiddleNode(head))
-	leftPointer := head
+func reorderList(head *ListNode) {
+	right := Reverse(MiddleNode(head))
 
-	for rightPointer != nil {
-		if rightPointer.Val != leftPointer.Val {
-			return false
-		}
-
-		rightPointer = rightPointer.Next
-		leftPointer = leftPointer.Next
+	left := head
+	for left != nil && right != left.Next {
+		leftNext := left.Next
+		left.Next = right
+		left = right
+		right = leftNext
 	}
-
-	return true
 }
 
 func (l *LinkedList) Print() {
@@ -195,13 +220,16 @@ func main() {
 	list := NewLinkedList()
 	list.InsertAtTail(1)
 	list.InsertAtTail(2)
-	list.InsertAtTail(2)
-	list.InsertAtTail(1)
+	list.InsertAtTail(3)
+	list.InsertAtTail(4)
+	list.InsertAtTail(5)
 
 	list.Print()
 	fmt.Println()
 
-	fmt.Println(fmt.Sprintf("is palindrome: %t", IsPalindrome(list.Head)))
+	reorderList(list.Head)
+
+	list.Print()
 }
 
 func PrintListNode(n *ListNode) {
