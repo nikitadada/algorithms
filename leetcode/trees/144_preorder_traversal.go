@@ -25,3 +25,19 @@ func (r *Res) traverse(node *TreeNode) {
 	r.traverse(node.Left)
 	r.traverse(node.Right)
 }
+
+//func preorderTraversal(root *TreeNode) []int {
+//	var res []int
+//	traverse(root, &res)
+//	return res
+//}
+//
+//func traverse (node *TreeNode, res *[]int) {
+//	if node == nil {
+//		return
+//	}
+//
+//	*res = append(*res, node.Val)
+//	traverse(node.Left, res)
+//	traverse(node.Right, res)
+//}
