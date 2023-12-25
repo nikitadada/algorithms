@@ -1,5 +1,6 @@
 package leetcode
 
+// Плохое решение O(n^2)
 func twoSum(nums []int, target int) []int {
 	p1, p2 := 0, 1
 	for p1 < len(nums)-1 && p2 < len(nums) {
