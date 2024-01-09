@@ -1,4 +1,4 @@
-package leetcode
+package sliding_window
 
 func longestConsecutive(nums []int) int {
 	m := make(map[int]struct{}, len(nums))

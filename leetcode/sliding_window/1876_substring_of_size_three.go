@@ -1,22 +1,22 @@
-package leetcode
+package sliding_window
 
 func countGoodSubstrings(s string) int {
 	runes := []rune(s)
 
 	state := make(map[rune]int)
-	leftPointer, res := 0, 0
+	windowStart, res := 0, 0
 
-	for i := 0; i < len(runes); i++ {
-		state[runes[i]]++
+	for windowEnd := 0; windowEnd < len(runes); windowEnd++ {
+		state[runes[windowEnd]]++
 
-		if i-leftPointer == 3 {
-			leftCh := runes[leftPointer]
+		if windowEnd-windowStart+1 > 3 {
+			leftCh := runes[windowStart]
 
 			state[leftCh]--
 			if state[leftCh] == 0 {
 				delete(state, leftCh)
 			}
-			leftPointer++
+			windowStart++
 		}
 
 		if len(state) == 3 {

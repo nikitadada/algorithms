@@ -1,4 +1,4 @@
-package leetcode
+package sliding_window
 
 func lengthOfLongestSubstring(s string) int {
 	runes := []rune(s)

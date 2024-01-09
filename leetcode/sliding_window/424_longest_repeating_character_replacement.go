@@ -1,4 +1,4 @@
-package leetcode
+package sliding_window
 
 func characterReplacement(s string, k int) int {
 	left, res, maxFrequently := 0, 0, 0

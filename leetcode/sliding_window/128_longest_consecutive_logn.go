@@ -1,6 +1,8 @@
-package leetcode
+package sliding_window
 
-import "sort"
+import (
+	"sort"
+)
 
 func longestConsecutive2(nums []int) int {
 	if len(nums) == 0 {
