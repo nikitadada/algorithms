@@ -2,16 +2,31 @@ package sliding_window
 
 func totalFruit(fruits []int) int {
 	stateMap := make(map[int]int, 3)
-	left, res := 0, 0
+	windowStart, res := 0, 0
 
-	for right := 0; right < len(fruits); right++ {
-		stateMap[fruits[right]]++
+	for windowEnd := 0; windowEnd < len(fruits); windowEnd++ {
+		stateMap[fruits[windowEnd]]++
 
 		if len(stateMap) > 2 {
-			stateMap[fruits[left]]++
+			stateMap[fruits[windowStart]]--
+			if stateMap[fruits[windowStart]] == 0 {
+				delete(stateMap, fruits[windowStart])
+			}
 
+			windowStart++
+			continue
 		}
+
+		res = Max(windowEnd-windowStart+1, res)
 	}
 
 	return res
+}
+
+func Max(a int, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
 }

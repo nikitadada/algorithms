@@ -4,22 +4,22 @@ func lengthOfLongestSubstring(s string) int {
 	runes := []rune(s)
 
 	state := make(map[rune]struct{})
-	res, left := 0, 0
+	res, windowStart := 0, 0
 
-	for i := 0; i < len(runes); i++ {
+	for windowEnd := 0; windowEnd < len(runes); windowEnd++ {
 		for {
-			_, ok := state[runes[i]]
+			_, ok := state[runes[windowEnd]]
 			if !ok {
 				break
 			}
 
-			delete(state, runes[left])
-			left++
+			delete(state, runes[windowStart])
+			windowStart++
 		}
 
-		state[runes[i]] = struct{}{}
+		state[runes[windowEnd]] = struct{}{}
 
-		res = max(res, i-left+1)
+		res = max(res, windowEnd-windowStart+1)
 	}
 
 	return res

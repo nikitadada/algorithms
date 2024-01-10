@@ -1,22 +1,21 @@
 package sliding_window
 
 func lengthOfLongestSubstring2(s string) int {
-	runes := []rune(s)
-	left, res := 0, 0
-
+	windowStart, res := 0, 0
 	state := make(map[rune]struct{})
+	runes := []rune(s)
 
-	for right := 0; right < len(runes); right++ {
-		if _, ok := state[runes[right]]; ok {
-			delete(state, runes[left])
-			left++
-			right--
+	for windowEnd := 0; windowEnd < len(runes); windowEnd++ {
+		if _, ok := state[runes[windowEnd]]; ok {
+			delete(state, runes[windowStart])
+			windowStart++
+			windowEnd--
 			continue
 		} else {
-			state[runes[right]] = struct{}{}
+			state[runes[windowEnd]] = struct{}{}
 		}
 
-		res = max(res, len(state))
+		res = max(res, windowEnd-windowStart+1)
 	}
 
 	return res
