@@ -4,31 +4,21 @@ import "sort"
 
 func threeSum(nums []int) [][]int {
 	sort.Ints(nums)
+	res := make([][]int, 0)
 
-	var res [][]int
+	for i := 0; i < len(nums)-2; i++ {
+		leftPointer := i + 1
+		rightPointer := len(nums) - 1
 
-	for idx := 0; idx < len(nums)-1; idx++ {
-		if idx != 0 && nums[idx-1] == nums[idx] {
-			continue
-		}
-
-		p1 := idx + 1
-		p2 := len(nums) - 1
-
-		for p1 < p2 {
-			if nums[idx]+nums[p1]+nums[p2] < 0 {
-				p1++
-				continue
-			}
-			if nums[idx]+nums[p1]+nums[p2] > 0 {
-				p2--
-				continue
-			}
-
-			res = append(res, []int{nums[idx], nums[p1], nums[p2]})
-			p1++
-			for nums[p1] == nums[p1-1] && p1 < p2 {
-				p1++
+		for leftPointer < rightPointer {
+			currSum := nums[i] + nums[leftPointer] + nums[rightPointer]
+			if currSum > 0 {
+				rightPointer--
+			} else if currSum < 0 {
+				leftPointer++
+			} else {
+				res = append(res, []int{nums[i], nums[leftPointer], nums[rightPointer]})
+				break
 			}
 		}
 	}
