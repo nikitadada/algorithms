@@ -1,24 +1,25 @@
 package leetcode
 
 func sortedSquares(nums []int) []int {
-	p1 := 0
-	p2 := len(nums) - 1
-	res := make([]int, len(nums), len(nums))
-	curInd := len(nums) - 1
+	l := len(nums)
+	leftPointer, rightPointer := 0, l-1
+	squares := make([]int, l, l)
+	currSquaresIdx := l - 1
 
-	for p1 <= p2 {
-		leftSquare := nums[p1] * nums[p1]
-		rightSquare := nums[p2] * nums[p2]
+	for leftPointer <= rightPointer {
+		leftSquare := nums[leftPointer] * nums[leftPointer]
+		rightSquare := nums[rightPointer] * nums[rightPointer]
+
 		if leftSquare > rightSquare {
-			res[curInd] = leftSquare
-			p1++
+			squares[currSquaresIdx] = leftSquare
+			leftPointer++
 		} else {
-			res[curInd] = rightSquare
-			p2--
+			squares[currSquaresIdx] = rightSquare
+			rightPointer--
 		}
 
-		curInd--
+		currSquaresIdx--
 	}
 
-	return res
+	return squares
 }
