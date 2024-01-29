@@ -2,28 +2,28 @@ package sliding_window
 
 func longestConsecutive(nums []int) int {
 	m := make(map[int]struct{}, len(nums))
+	res := 0
 
-	for _, v := range nums {
-		m[v] = struct{}{}
+	for _, num := range nums {
+		m[num] = struct{}{}
 	}
 
-	resCount := 0
-
 	for num := range m {
-		if _, ok := m[num-1]; !ok {
+		if _, ok := m[num-1]; ok {
 			continue
 		}
 
-		cur := num
+		currElemOfConsecutive := num
 		for {
-			if _, ok := m[cur+1]; !ok {
+			if _, ok := m[currElemOfConsecutive+1]; ok {
+				currElemOfConsecutive++
+			} else {
 				break
 			}
-			cur++
 		}
 
-		resCount = max(resCount, cur)
+		res = max(res, currElemOfConsecutive-num+1)
 	}
 
-	return resCount
+	return res
 }

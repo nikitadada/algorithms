@@ -1,4 +1,4 @@
-package leetcode
+package linked_lists
 
 func middleNode(head *ListNode) *ListNode {
 	slow := head

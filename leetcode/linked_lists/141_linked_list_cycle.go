@@ -1,13 +1,7 @@
-package leetcode
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+package linked_lists
 
 func hasCycle(head *ListNode) bool {
-	fastPointer := head
-	slowPointer := head
+	slowPointer, fastPointer := head, head
 
 	for fastPointer != nil && fastPointer.Next != nil {
 		slowPointer = slowPointer.Next

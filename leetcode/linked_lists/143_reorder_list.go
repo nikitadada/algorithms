@@ -1,4 +1,4 @@
-package leetcode
+package linked_lists
 
 func reorderList(head *ListNode) {
 	right := reverseList(middleNode(head))

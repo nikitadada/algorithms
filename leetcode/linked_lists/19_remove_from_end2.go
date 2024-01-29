@@ -1,4 +1,4 @@
-package leetcode
+package linked_lists
 
 func removeNthFromEnd2(head *ListNode, n int) *ListNode {
 	dummyNode := &ListNode{

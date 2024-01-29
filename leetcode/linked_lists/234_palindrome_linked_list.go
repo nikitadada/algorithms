@@ -1,4 +1,4 @@
-package leetcode
+package linked_lists
 
 func isPalindromeList(head *ListNode) bool {
 	rightPointer := reverseList(middleNode(head))
